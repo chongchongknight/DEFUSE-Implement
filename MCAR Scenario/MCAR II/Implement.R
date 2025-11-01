@@ -1,0 +1,79 @@
+source("./Source/computing_function.R")
+source("./Source/main_function_single_binary.R")
+source("./Source/DEFUSE.R")
+source("./Source/data_generation.R")
+library(matrixStats)      # efficient computation of row/column statistics for matrices
+library(stepPlr)          # stepwise penalized logistic regression
+library(evd)              # extreme value distributions (for tail analysis, max-stability)
+library(methods)          # formal S4 methods and classes (base R dependency)
+library(MASS)             # classical statistics functions and multivariate distributions
+library(glmnet)           # penalized generalized linear models (LASSO, ridge)
+library(dplyr)            # data manipulation and transformation (select, mutate, filter, etc.)
+library(caret)            # implementation of machine learning methods (model training, tuning)
+library(mice)             # multiple imputation for missing data
+library(splines)          # spline basis generation for nonlinear regression
+library(ggplot2)          # visualization and plotting
+library(glmnet)           # (duplicate load) penalized regression models — LASSO / Elastic Net
+library(nloptr)           # nonlinear optimization (for M-estimation and constrained minimization)
+library(mvtnorm)          # multivariate normal and t-distribution functions (simulation)
+
+set.seed(100)
+sample = c(6000, 500, 2500)
+K = 2 # number of sites
+N = c(rep(sample[1],K)) # sample size in each site
+n = c(sample[2], sample[3])# labeled data in each site
+dim = 5 # number of predictors
+M = vector("list", length = K)
+M[[1]] = NA # missing index
+M[[2]] = c(4,5)
+Mu = c(0,0,0,0,0) # multivariate normal distribution parameters
+rho = 0
+cor_1 = matrix(rho, nrow = dim, ncol = dim)
+var = 1
+cor_1[dim,] = 0
+cor_1[,dim] = 0
+for (i in 1:dim) {
+  cor_1[i,i] = var
+}
+Sigma = cor_1
+# Set the value for gamma.true
+gamma.bar = c(-1, -1, 1, 1, 1)
+y_form = 1
+imput = 1
+# Simulation result
+generate_mu = c(0.4, -0.5, 0.5, 0.6, -0.3, 0.7)
+prop = 0.5
+n_coe = c(4, 5)
+n_lc = 500 # nrow(data_lc)
+n_lic = 2500 # nrow(data_lic)
+n_uc = 5500 # nrow(data_uc)
+source_index = list(
+  c(1:n_lc), 
+  c((n_lc + 1):(n_lc + n_lic)),
+  c((n_lc + n_lic + 1): (n_lc + n_lic + n_uc))
+)
+miss_source = list(
+  NULL,
+  n_coe,
+  NULL
+)
+nrep = 1
+for (i in 1:nrep) {
+  set.seed(i)
+  dat = mix_gaussian(n_site = K, n_total = N, n_label = n, mu = Mu, 
+                     sigma = Sigma, imput_linear = imput, y_correct = y_form, 
+                     M = M, gamma.bar = gamma.bar, seednum = i,  generate_mu = generate_mu, prop = prop)
+  data_lc = cbind(dat$Y[[1]][1:500], dat$X[[1]][1:500, ]) ### first column is Y
+  data_lic = cbind(dat$Y[[2]][1:2500], dat$X[[2]][1:2500, ])
+  data_lic[, n_coe + 1] = NA ## missing
+  data_uc = cbind(dat$Y[[1]][501:6000], dat$X[[1]][501:6000, ])
+  data_lc = data.frame(data_lc)
+  data_lic = data.frame(data_lic)
+  data_uc = data.frame(data_uc)
+  tryCatch({
+    Combined_X = rbind(data_lc[, -1], data_lic[, -1] , data_uc[, -1])
+    Combined_Y = c(data_lc[, 1], data_lic[, 1], data_uc[, 1])
+    lm_res = DEFUSE_apply(Combined_X, Combined_Y, source_index, miss_source, "lm", i)
+    svm_res = DEFUSE_apply(Combined_X, Combined_Y, source_index, miss_source, "svmLinear", i)
+  })
+}
