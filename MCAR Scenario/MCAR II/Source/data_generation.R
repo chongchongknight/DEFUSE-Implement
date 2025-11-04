@@ -1,6 +1,6 @@
 # generate the distribution for binary outcomes
 mix_gaussian <- function(n_site, n_total, n_label, mu, sigma, imput_linear, y_correct, M, gamma.bar, seednum,  generate_mu, prop){
-  prop = 0.3
+  prop = 1
   set.seed(seednum)
   # K is 2, 
   x = vector("list", n_site)

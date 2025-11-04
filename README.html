@@ -353,30 +353,31 @@ display: none;
 
 
 <div id="defuse-implement" class="section level1">
-<h1>🧩 DEFUSE-Implement</h1>
+<h1>DEFUSE-Implement</h1>
 <p>Implementation package for <a href="https://arxiv.org/abs/2405.18722"><strong>DEFUSE: Double-Robust
 Efficiency-Fused Semi-Supervised Estimation</strong></a></p>
 <hr />
 <div id="project-structure" class="section level2">
-<h2>📂 Project Structure</h2>
+<h2>Project Structure</h2>
 <p>This repository is organized into <strong>three main
 components</strong>:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Simulation (MCAR)</strong><br />
+<li><strong>MCAR Scenario</strong><br />
 </li>
-<li><strong>Simulation (MAR)</strong><br />
+<li><strong>MAR Scenario</strong><br />
 </li>
-<li><strong>Real Data Analysis (MIMIC-III and NACC)</strong></li>
+<li><strong>Real Data</strong></li>
 </ol>
 <hr />
 </div>
 <div id="simulation-studies" class="section level2">
-<h2>🧪 Simulation Studies</h2>
+<h2>Simulation Studies</h2>
 <p>The simulation section covers two types of missingness
 mechanisms:</p>
 <div id="mcar-and-mar-scenarios" class="section level3">
 <h3><strong>1. MCAR and MAR Scenarios</strong></h3>
-<p>This section includes <strong>six simulation settings</strong>:</p>
+<p>This section includes <strong>six simulation settings</strong> as
+described in our main paper:</p>
 <table>
 <colgroup>
 <col width="43%" />
@@ -437,9 +438,9 @@ core R scripts</strong>:</p>
 <tbody>
 <tr class="odd">
 <td><strong><code>computing_function.R</code></strong></td>
-<td>Computational utilities including Hessian matrix evaluation, score
-function computation, DML learning, asymptotic variance estimation, and
-polynomial basis construction.</td>
+<td>Auxiliary computational utilities including Hessian matrix
+evaluation, score function computation, DML learning, asymptotic
+variance estimation, and polynomial basis construction.</td>
 </tr>
 <tr class="even">
 <td><strong><code>data_generation.R</code></strong></td>
@@ -464,7 +465,7 @@ including <code>DEFUSE_LM</code> and <code>DEFUSE</code>.</td>
 <p>The <strong>Real Data</strong> component consists of two application
 studies:</p>
 <ol style="list-style-type: decimal">
-<li><strong>MIMIC-III</strong><br />
+<li><strong>MIMIC 3</strong><br />
 </li>
 <li><strong>NACC</strong></li>
 </ol>
@@ -476,8 +477,8 @@ simulation implementation).<br />
 <li><code>Source/</code> — contains main estimation functions.<br />
 </li>
 <li><code>data/</code> — includes pseudo (de-identified) data,
-column-wise shuffled.<br />
-</li>
+column-wise shuffled while keeping the same variable names and missing
+structure.</li>
 <li><code>Check_misalign.R</code> — verifies source misalignment.<br />
 </li>
 <li><code>misalign/</code> — includes supporting functions for
@@ -517,16 +518,16 @@ one replication under different settings, based on execution on a
 <tr class="even">
 <td></td>
 <td><em>n = 2000</em></td>
-<td>~8–5 minutes</td>
+<td>~5-8 minutes</td>
 </tr>
 <tr class="odd">
 <td><strong>Real Data: MIMIC-III</strong></td>
-<td>—</td>
+<td>check paper</td>
 <td>~2–3 minutes</td>
 </tr>
 <tr class="even">
 <td><strong>Real Data: NACC</strong></td>
-<td>—</td>
+<td>check paper</td>
 <td>~15–20 minutes</td>
 </tr>
 </tbody>
@@ -553,66 +554,73 @@ one replication under different settings, based on execution on a
 <tbody>
 <tr class="odd">
 <td><strong>Table 2</strong></td>
-<td><code>Setting 1 (MCAR I)</code></td>
-<td>Derived from the single-BM continuous outcome simulation with
-correctly specified control variate.</td>
-</tr>
-<tr class="even">
-<td><strong>Table 3</strong></td>
-<td><code>Setting 2 (MCAR II)</code> and
-<code>Setting 3 (MCAR III)</code></td>
+<td><code>Scenario/MCAR II</code> and
+<code>Scenario/MCAR III</code></td>
 <td>Generated from single- and multiple-BM simulations with binary and
 continuous outcomes.</td>
 </tr>
-<tr class="odd">
-<td><strong>Table 4</strong></td>
-<td><code>Setting 4 (MAR IV)</code></td>
-<td>Based on single and multiple BM simulations under MAR with
-continuous outcome.</td>
-</tr>
 <tr class="even">
-<td><strong>Table 5</strong></td>
-<td><code>Setting 5 (MAR V)</code></td>
-<td>Obtained from multiple-BM MAR simulations with continuous
+<td><strong>Table 3</strong></td>
+<td><code>Scenario/MAR IV</code></td>
+<td>Based on single BM simulations under MAR with continuous
 outcome.</td>
 </tr>
 <tr class="odd">
+<td><strong>Table 4</strong></td>
+<td><code>Scenario/MAR V</code></td>
+<td>Based on the Auxiliary single BM simulation under MAR with
+continuous outcome.</td>
+</tr>
+<tr class="even">
 <td><strong>Figure 1</strong></td>
-<td><code>Setting 5 (MAR V)</code></td>
+<td><code>Scenario/MAR V</code></td>
 <td>Visualization of the selection performance under multiple-BM MAR
 setting.</td>
 </tr>
-<tr class="even">
-<td><strong>Table 6</strong></td>
-<td><code>Real Data – NACC</code></td>
+<tr class="odd">
+<td><strong>Table 5</strong></td>
+<td><code>Real Data/NACC</code></td>
 <td>Results derived from the NACC dataset analysis.</td>
 </tr>
-<tr class="odd">
-<td><strong>Table 7</strong></td>
-<td><code>Real Data – MIMIC-III</code></td>
+<tr class="even">
+<td><strong>Table 6</strong></td>
+<td><code>Real Data/MIMIC 3</code></td>
 <td>Results derived from the MIMIC-III dataset analysis.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Table S2</strong></td>
-<td><code>Setting 2 (MCAR II)</code></td>
+<td><code>Scenario/MCAR I</code></td>
+<td>Supplementary results fo the single BM continuous outcome simulation
+with correctly specified control variate.</td>
+</tr>
+<tr class="even">
+<td><strong>Figure S1 &amp; Figure S2</strong></td>
+<td><code>Scenario/MCAR I</code></td>
+<td>Supplementary figures visualizing performance under the single BM
+continuous Y setting.</td>
+</tr>
+<tr class="odd">
+<td><strong>Table S3</strong></td>
+<td><code>Scenario/MCAR II</code></td>
 <td>Supplementary results corresponding to single-BM binary Y
 scenario.</td>
 </tr>
-<tr class="odd">
-<td><strong>Figure S1 &amp; Figure S2</strong></td>
-<td><code>Setting 1 (MCAR I)</code></td>
-<td>Supplementary figures visualizing performance under the single-BM
-continuous Y setting.</td>
-</tr>
 <tr class="even">
-<td><strong>Table S3</strong></td>
-<td><code>Real Data – Check Misalignment</code></td>
+<td><strong>Table S4</strong></td>
+<td><code>Scenario/MAR IV</code></td>
+<td>Based on multiple BM simulations under MAR with continuous
+outcome.</td>
+</tr>
+<tr class="odd">
+<td><strong>Table S5</strong></td>
+<td><code>Real Data/NACC/Check Misalign</code> and
+<code>Real Data/MIMIC 3/Check Misalign</code></td>
 <td>Results from the misalignment diagnostic analysis in real data
 section.</td>
 </tr>
-<tr class="odd">
-<td><strong>Table S4 &amp; Table S5</strong></td>
-<td><code>Real Data – Implement.R</code></td>
+<tr class="even">
+<td><strong>Table S6 &amp; Table S7</strong></td>
+<td><code>Real Data/NACC</code> and <code>Real Data/MIMIC 3</code></td>
 <td>Coefficients estimated from real data, with SE’s and P values</td>
 </tr>
 </tbody>
