@@ -58,12 +58,15 @@ The **Real Data** component consists of two application studies:
 
 Each dataset folder shares a similar internal structure:
 
-- `Implement.R` — main execution script (analogous to simulation implementation).  
-- `Source/` — contains main estimation functions.  
 - `data/` — includes pseudo (de-identified) data, column-wise shuffled while keeping the same variable names and missing structure.
 - `Check_misalign.R` — verifies source misalignment.  
 - `misalign/` — includes supporting functions for misalignment checks.
+- `MCAR/` and `MAR/` — indicates missing mechanism. 
 
+Within each folder, we have:
+- `data/` — includes pseudo (de-identified) data, column-wise shuffled while keeping the same variable names and missing structure.
+- `Implement.R` — main execution script (analogous to simulation implementation).  
+- `Source/` — contains main estimation functions.  
 ---
 
 ## Computation time
@@ -77,7 +80,7 @@ Below summarizes the **average computation time** for one replication under diff
 |  | *n = 1000* | ~1-2 minutes |
 |  | *n = 2000* | ~5-8 minutes |
 | **Real Data: MIMIC-III** | check paper | ~2–3 minutes |
-| **Real Data: NACC** | check paper | ~15–20 minutes |
+| **Real Data: NACC** | check paper | ~5–15 minutes |
 
 
 ## Mapping Between Paper and Repository
@@ -91,14 +94,15 @@ The following table summarizes the correspondence between the **tables and figur
 | **Table 4** | `Scenario/MAR V` | Based on the Auxiliary single BM simulation under MAR with continuous outcome. |
 | **Figure 1** | `Scenario/MAR V` | Visualization of the selection performance under multiple-BM MAR setting. |
 | **Table 5** | `Real Data/NACC` | Results derived from the NACC dataset analysis. |
-| **Table 6** | `Real Data/MIMIC 3` | Results derived from the MIMIC-III dataset analysis. |
+| **Table 6** | `Real Data/MIMIC 3/Single BM, Multiple BM/MCAR` | Results derived from the MIMIC-III dataset analysis. |
 | **Table S2** | `Scenario/MCAR I` | Supplementary results fo the single BM continuous outcome simulation with correctly specified control variate. |
 | **Figure S1 & Figure S2** | `Scenario/MCAR I` | Supplementary figures visualizing performance under the single BM continuous Y setting. |
 | **Table S3** | `Scenario/MCAR II` | Supplementary results corresponding to single-BM binary Y scenario. |
 | **Table S4** | `Scenario/MAR IV` | Based on multiple BM simulations under MAR with continuous outcome. |
-| **Table S5** | `Real Data/NACC/Check Misalign` and `Real Data/MIMIC 3/Check Misalign` | Results from the misalignment diagnostic analysis in real data section. |
-| **Table S6 & Table S7** | `Real Data/NACC` and `Real Data/MIMIC 3` | Coefficients estimated from real data, with SE's and P values |
-
+| **Table S5 & Table S6** | `Real Data/NACC/Check Misalign` and `Real Data/MIMIC 3/Check Misalign` | Results from the misalignment diagnostic analysis in real data section. |
+| **Table S7** | `Real Data/NACC`| Coefficients estimated from real data, with SE's and P values |
+| **Table S9 & Table S10** | `Real Data/MIMIC 3`| Results from the MCAR diagnostic analysis in real data section. |
+| **Table S11 & Table S12 & Table S13** | `Real Data/MIMIC 3`| Results from the MAR diagnostic analysis in real data section. |
 
 
 ---

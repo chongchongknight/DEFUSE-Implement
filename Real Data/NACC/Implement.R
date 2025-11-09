@@ -31,6 +31,12 @@ data = read.csv("data/score_memory_language_function.csv") %>%
          HEIGHT = scale(HEIGHT))
 data2 = read.csv("data/added_demo.csv") %>% 
   select(-X)
+
+## selected center ids
+id_center = read.csv("id_center.csv")[, -1]
+id_center = id_center[!duplicated(id_center$NACCID), ]
+adc_select = read.csv("data/adc_select.csv")[, -1]
+
 data = left_join(data, data2, by = "NACCID") %>% select(NACCMMSE, SEX, RACE, NACCAGE, WEIGHT, HEIGHT, NACCLIVS, ALCOHOL, TOBAC100, CDRLANG)
 ## select data
 set.seed(3)
@@ -38,8 +44,9 @@ data_lc = data %>%
   filter(!is.na(NACCMMSE) & !is.na(CDRLANG)) 
 data_lc = data_lc[sample(1:nrow(data_lc), 1000, replace = F), ]
 data_lic = data %>% 
-  filter(!is.na(NACCMMSE) & is.na(CDRLANG))
-data_lic = data_lic[sample(1:nrow(data_lic), 1000, replace = F), ]
+  filter(!is.na(NACCMMSE) & is.na(CDRLANG)) %>% 
+  filter(NACCADC %in% adc_select) %>% 
+  select(-NACCADC)
 data_uc = data %>% 
   filter(is.na(NACCMMSE) & !is.na(CDRLANG))
 data_uc = data_uc[sample(1:nrow(data_uc), 10000, replace = F), ]

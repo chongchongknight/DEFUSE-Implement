@@ -20,7 +20,8 @@ main_func <- function(Combined_X, Combined_Y, n, S_DR_tilt, gamma_tilt, source_i
   K1_cond_XgammaY1_Z_LM1 = matrix(0, nrow = nrow(X_LM1), ncol = ncol(X_LM1))
   K1_cond_XgammaY1_Z_LC_UC = matrix(0, nrow = nrow(X_UC), ncol = ncol(X_UC))
   K1_cond_XgammaY1_Z_LM1_UC = matrix(0, nrow = nrow(X_UC), ncol = ncol(X_UC))
-  weight_LC = rep(0, n[1])
+  ## weight
+  weight_LC = rep(1, n[1])
   weight_LM1 = rep(0, n[2])
   covariate_lic1 = which(!is.na(X_LM1[1,]))
   covariate_z = c(1:5)
@@ -33,10 +34,7 @@ main_func <- function(Combined_X, Combined_Y, n, S_DR_tilt, gamma_tilt, source_i
       score_z_id = (ff + 1) %% 3
       score_xsuby1_z_id = (ff + 1) %% 3
       eva_id = (ff + 2) %% 3
-      weight_lc = density_ratio_xgboost_linear(X_UC[, covariate_z], 
-                                               X_LC[fold_id_LC == density_id, covariate_z], 
-                                               X_LC[fold_id_LC == eva_id, covariate_z])
-      weight_LC[fold_id_LC == eva_id] = weight_lc
+      
       X_LC_tr_score_z <- X_LC[fold_id_LC == score_z_id, covariate_z]
       K1_tr_score_z <- K1[fold_id_LC == score_z_id]
       XY_LC_tr_score_xsuby1 <- cbind(X_LC[fold_id_LC == score_xsuby1_id, covariate_lic1], Y_LC[fold_id_LC == score_xsuby1_id])
@@ -240,7 +238,7 @@ main_func2 <- function(Combined_X, Combined_Y, n, S_DR_tilt, gamma_tilt, source_
   K1_cond_XgammaY1_Z_LM1 = matrix(0, nrow = nrow(X_LM1), ncol = ncol(X_LM1))
   K1_cond_XgammaY1_Z_LC_UC = matrix(0, nrow = nrow(X_UC), ncol = ncol(X_UC))
   K1_cond_XgammaY1_Z_LM1_UC = matrix(0, nrow = nrow(X_UC), ncol = ncol(X_UC))
-  weight_LC = rep(0, n[1])
+  weight_LC = rep(1, n[1])
   weight_LM1 = rep(0, n[2])
   covariate_lic1 = which(!is.na(X_LM1[1,]))
   covariate_z = c(1:5)
@@ -252,10 +250,7 @@ main_func2 <- function(Combined_X, Combined_Y, n, S_DR_tilt, gamma_tilt, source_
       score_z_id = (ff + 1) %% 3
       score_xsuby1_z_id = (ff + 1) %% 3
       eva_id = (ff + 2) %% 3
-      weight_lc = density_ratio_xgboost_linear(X_UC[, covariate_z], 
-                                               X_LC[fold_id_LC == density_id, covariate_z], 
-                                               X_LC[fold_id_LC == eva_id, covariate_z])
-      weight_LC[fold_id_LC == eva_id] = weight_lc
+      
       X_LC_tr_score_z <- X_LC[fold_id_LC == score_z_id, covariate_z]
       K1_tr_score_z <- K1[fold_id_LC == score_z_id]
       XY_LC_tr_score_xsuby1 <- cbind(X_LC[fold_id_LC == score_xsuby1_id, covariate_lic1], Y_LC[fold_id_LC == score_xsuby1_id])

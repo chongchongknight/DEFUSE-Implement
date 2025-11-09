@@ -471,11 +471,6 @@ studies:</p>
 </ol>
 <p>Each dataset folder shares a similar internal structure:</p>
 <ul>
-<li><code>Implement.R</code> — main execution script (analogous to
-simulation implementation).<br />
-</li>
-<li><code>Source/</code> — contains main estimation functions.<br />
-</li>
 <li><code>data/</code> — includes pseudo (de-identified) data,
 column-wise shuffled while keeping the same variable names and missing
 structure.</li>
@@ -483,8 +478,15 @@ structure.</li>
 </li>
 <li><code>misalign/</code> — includes supporting functions for
 misalignment checks.</li>
+<li><code>MCAR/</code> and <code>MAR/</code> — indicates missing
+mechanism.</li>
 </ul>
-<hr />
+<p>Within each folder, we have: - <code>data/</code> — includes pseudo
+(de-identified) data, column-wise shuffled while keeping the same
+variable names and missing structure. - <code>Implement.R</code> — main
+execution script (analogous to simulation implementation).<br />
+- <code>Source/</code> — contains main estimation functions.<br />
+—</p>
 </div>
 <div id="computation-time" class="section level2">
 <h2>Computation time</h2>
@@ -528,7 +530,7 @@ one replication under different settings, based on execution on a
 <tr class="even">
 <td><strong>Real Data: NACC</strong></td>
 <td>check paper</td>
-<td>~15–20 minutes</td>
+<td>~5–15 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -584,7 +586,7 @@ setting.</td>
 </tr>
 <tr class="even">
 <td><strong>Table 6</strong></td>
-<td><code>Real Data/MIMIC 3</code></td>
+<td><code>Real Data/MIMIC 3/Single BM, Multiple BM/MCAR</code></td>
 <td>Results derived from the MIMIC-III dataset analysis.</td>
 </tr>
 <tr class="odd">
@@ -612,16 +614,26 @@ scenario.</td>
 outcome.</td>
 </tr>
 <tr class="odd">
-<td><strong>Table S5</strong></td>
+<td><strong>Table S5 &amp; Table S6</strong></td>
 <td><code>Real Data/NACC/Check Misalign</code> and
 <code>Real Data/MIMIC 3/Check Misalign</code></td>
 <td>Results from the misalignment diagnostic analysis in real data
 section.</td>
 </tr>
 <tr class="even">
-<td><strong>Table S6 &amp; Table S7</strong></td>
-<td><code>Real Data/NACC</code> and <code>Real Data/MIMIC 3</code></td>
+<td><strong>Table S7</strong></td>
+<td><code>Real Data/NACC</code></td>
 <td>Coefficients estimated from real data, with SE’s and P values</td>
+</tr>
+<tr class="odd">
+<td><strong>Table S9 &amp; Table S10</strong></td>
+<td><code>Real Data/MIMIC 3</code></td>
+<td>Results from the MCAR diagnostic analysis in real data section.</td>
+</tr>
+<tr class="even">
+<td><strong>Table S11 &amp; Table S12 &amp; Table S13</strong></td>
+<td><code>Real Data/MIMIC 3</code></td>
+<td>Results from the MAR diagnostic analysis in real data section.</td>
 </tr>
 </tbody>
 </table>
